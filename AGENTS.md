@@ -8,7 +8,7 @@
 2. 指标② H20 解码控制有效率：`decode_precision ≥ 0.90`（归档值 0.9050）
 
 成功判据（G3）：`bash run.sh` 打印 per-step 数据 + `TORCS terminated.` +
-`snn_torcs_handoff/data/replay_example.json` 重新生成。
+`data/replay_example.json` 重新生成。
 
 ## 必读
 
@@ -32,7 +32,7 @@
 
 ## 红线
 
-- **不改** `outputs/acceptance_exp012_H20_20260824/`（归档证据）和 `snn_torcs_handoff/`（冻结交接包）
+- **不改** `outputs/acceptance_exp012_H20_20260824/`（归档证据）和 `docs/handoff_archive/`（交接归档）
   的任何已有文件；新证据只写 `outputs/.../rerun/`（已 gitignore）。
 - **不改** `.gitattributes`（LF 强制，Windows 协作者依赖它）。
 - 遇到要改代码的情况：先最小改动 + 在 PR/commit 里说明理由；涉及验收口径（H20 定义、

@@ -21,7 +21,7 @@ To restore matrix reruns, either
   2. reimplement it following docs/condition_module_spec.md.
 
 Everything else — metric1 latency benchmark, metric2 standard H20, and the
-snn_torcs_handoff/run.sh acceptance demo — does NOT need this module.
+run.sh acceptance demo — does NOT need this module.
 """
 
 
@@ -32,7 +32,7 @@ def _unavailable(*_args, **_kwargs):
         "file from the training repo (/home/desc/gym_torcs/snn_torcs/"
         "condition.py) onto this path, or reimplement it per "
         "docs/condition_module_spec.md. Note: metric1 / metric2-standard / "
-        "handoff run.sh do not require this module."
+        "run.sh do not require this module."
     )
 
 

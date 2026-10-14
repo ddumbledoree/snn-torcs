@@ -20,12 +20,12 @@ SNN（Spiking Neural Network）策略在 TORCS 上的**推理运行包 + 验收�
 1. **装 TORCS**（本仓库不含仿真器本体）：按 `DEPLOY_TORCS.md` 编译安装
    vtorcs-RL-color（UDP 3101 + scr_server + g-track-1），并装 `xvfb x11-utils xautomation procps`。
 2. **建 Python 环境**：`conda env create -f environment.yml && conda activate torcs_RL`
-3. **交接包闭环验收**（= 跑通的判定标准）：
+3. **闭环验收**（= 跑通的判定标准）：
    ```bash
-   bash run.sh        # 等价 bash snn_torcs_handoff/run.sh
+   bash run.sh
    ```
    看到 per-step 数据逐行打印 + 末行 `TORCS terminated.` +
-   `snn_torcs_handoff/data/replay_example.json` 重新生成 = 通过。
+   `data/replay_example.json` 重新生成 = 通过。
 4. **出验收指标**：
    ```bash
    bash scripts/run_metric1_latency.sh     # 指标①（无需 TORCS，纯前向时延）
@@ -53,9 +53,9 @@ SNN（Spiking Neural Network）策略在 TORCS 上的**推理运行包 + 验收�
 ├── conditions/conditions.yaml    6+1 条件预设（供 condition.py 使用）
 ├── scripts/                      验收复现入口（metric1 / metric2 / 7条件矩阵）
 ├── environment.yml               conda 环境（python 3.13 + torch 2.12 + gym 0.26.2）
-├── snn_torcs_handoff/            原样冻结的交接子包（自洽，含示例模型 exp013）
+├── data/replay_example.json      预生成逐帧回放示例（1000 步，展示软件回放模式输入）
 ├── outputs/acceptance_exp012_H20_20260824/   原样冻结的验收证据包（勿改）
-└── docs/                         部署指南 / condition 重建规格 / practice.xml 模板 / 移植核查报告
+└── docs/                         部署指南 / condition 重建规格 / practice.xml 模板 / handoff 归档 / 移植核查报告
 ```
 
 ## 权重文件（sha256）
@@ -63,8 +63,10 @@ SNN（Spiking Neural Network）策略在 TORCS 上的**推理运行包 + 验收�
 | 文件 | sha256 | 用途 |
 |---|---|---|
 | `outputs/.../models/exp012_ours_t4_best.pth` | `61c9982f…c42f2d7b5e25` | ours SNN T=4（指标①②主角） |
-| `outputs/.../models/exp013_baseline_t8_best.pth` | `22825d7b…2936fe6e9dac0` | baseline T=8（时延对照） |
-| `snn_torcs_handoff/model/exp013_best.pth` | 同上（与 baseline 同一文件） | demo 示例模型 |
+| `outputs/.../models/exp013_baseline_t8_best.pth` | `22825d7b…2936fe6e9dac0` | baseline T=8（时延对照 + demo 示例模型） |
+
+（原交接包中有一份 exp013 副本，与上表逐字节相同，仓库化时已去重；交接包独有的
+设计稿/说明归档在 `docs/handoff_archive/`）
 
 checkpoint 为 trainer 全量格式（含 `policy_net` 键），由 `snn_torcs/io.py::load_state_dict`
 解包加载；已实测与 `FCSNN(68,256,7)` 结构逐层匹配。
@@ -74,7 +76,7 @@ checkpoint 为 trainer 全量格式（含 `policy_net` 键），由 `snn_torcs/i
 - **alt-track 条件**：原环境跑完整 1000 步会在 ~556 步触发 TORCS CommTimeout（证据在
   `outputs/.../runtime_notes/`）；只能以 pre-timeout 段（H20=93.71%）作为辅助证据。
 - **gym 0.26.2 + numpy 2.x** 会打印 deprecation 警告，实测不影响运行（原环境同组合）。
-- 归档目录（`outputs/acceptance_.../`、`snn_torcs_handoff/`）保持原样不动；新证据一律写
+- 归档目录（`outputs/acceptance_.../`、`docs/handoff_archive/`）保持原样不动；新证据一律写
   `outputs/.../rerun/`（已 gitignore）。
 - Windows 协作者注意：`.gitattributes` 已强制 LF，请勿改动，否则 .sh 会在 Linux 上炸。
 
