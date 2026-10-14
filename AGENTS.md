@@ -40,6 +40,19 @@
 - alt-track 条件的 CommTimeout（~556 步）是已知仿真器问题，不要试图"修"它，也不得把
   pre-timeout 数据当完整 1000 步结果上报。
 
+## 已知部署目标（2026-10 平台容器快照，供参考，以实际检测为准）
+
+- Ubuntu 22.04.1（与 DEPLOY_TORCS.md 推荐基底一致）、root 用户、x86_64、32C/64T
+- NVIDIA RTX 4090 24GB，驱动 595.84（CUDA 13.2）→ environment.yml 的 CUDA13 栈可直接用，DEVICE=cuda 可用
+- Anaconda 装在 /home/lynxi（非 root 的 $HOME）→ 验收脚本的 PY 自动探测已兼容 conda-on-PATH；
+  兼容不了时手动 `PY=/home/lynxi/anaconda3/envs/torcs_RL/bin/python bash scripts/...`
+- GitHub / PyPI 连通已验证；仓库若为 Private，clone 需 PAT 或 deploy key
+- 持久化：/root 为容器 overlay，重建即丢。工作目录建议 /root/workspace/snn-torcs；
+  TORCS 编译成功后立即打包备份：
+  `tar czf /root/workspace/torcs-installed.tgz /usr/local/bin/torcs* /usr/local/share/games/torcs /usr/local/lib/torcs ~/.torcs`
+  （重建容器后解包 + ldconfig 可免重新编译）
+- GPU 可能与平台其他任务共享；eval 负载轻，影响小；时延基准想要干净数字可选空闲时段或 DEVICE=cpu 对照
+
 ## 工作方式
 
 - 按 DEPLOY_TORCS.md 的 G1→G4 逐 gate 推进，每 gate 留下输出证据（终端日志贴到汇报里）。

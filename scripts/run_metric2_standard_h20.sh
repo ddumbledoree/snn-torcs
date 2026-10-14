@@ -6,12 +6,20 @@ REPO_ROOT="$(cd "$PKG_DIR/../.." && pwd)"
 # Python interpreter: export PY=... to override; otherwise auto-resolve the
 # torcs_RL conda env, falling back to the active interpreter.
 if [ -z "${PY:-}" ]; then
-    for _c in "$HOME/Conda/envs/torcs_RL/bin/python" \
-              "$HOME/miniconda3/envs/torcs_RL/bin/python" \
-              "$HOME/anaconda3/envs/torcs_RL/bin/python" \
-              "/opt/conda/envs/torcs_RL/bin/python"; do
-        [ -x "$_c" ] && PY="$_c" && break
-    done
+    # 1) any conda on PATH (handles Anaconda installed outside $HOME, e.g. /opt or /home/<other>)
+    if command -v conda >/dev/null 2>&1; then
+        _b="$(conda info --base 2>/dev/null || true)"
+        [ -n "$_b" ] && [ -x "$_b/envs/torcs_RL/bin/python" ] && PY="$_b/envs/torcs_RL/bin/python"
+    fi
+    # 2) common fixed prefixes
+    if [ -z "${PY:-}" ]; then
+        for _c in "$HOME/Conda/envs/torcs_RL/bin/python" \
+                  "$HOME/miniconda3/envs/torcs_RL/bin/python" \
+                  "$HOME/anaconda3/envs/torcs_RL/bin/python" \
+                  "/opt/conda/envs/torcs_RL/bin/python"; do
+            [ -x "$_c" ] && PY="$_c" && break
+        done
+    fi
 fi
 PY="${PY:-python3}"
 # Compute device: export DEVICE=cpu on GPU-less boxes.
