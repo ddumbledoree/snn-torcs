@@ -98,13 +98,13 @@ python -c "import torch, yaml, numpy, gym; print('ok')"   # gym 会打 deprecati
 - 网络慢/受限时：conda 与 pip 均可配国内镜像（如清华源）再 `conda env create -f environment.yml`，
   cuda-toolkit 相关 wheel 合计数 GB，镜像能省大量时间。
 
-## 5. 验收 gate（逐级解锁，每步过了再下一步）
+## 5. 分步验收清单（G = Gate = 检查点，逐级解锁，每步通过才进行下一步）
 
 ```bash
-# G1 仿真器链路（不用模型）
+# G1 工具链检查（不用模型）
 command -v torcs Xvfb xdpyinfo xte pkill
 
-# G2 纯推理冒烟（不用 TORCS；--help 能打印说明 import 链完整）
+# G2 单独测模型推理（不用 TORCS；能打印帮助说明 import 链完整）
 python scripts/benchmark_policy_latency.py --help
 DEVICE=cpu python scripts/benchmark_policy_latency.py \
     --baseline-ckpt outputs/acceptance_exp012_H20_20260824/models/exp013_baseline_t8_best.pth \
@@ -112,11 +112,11 @@ DEVICE=cpu python scripts/benchmark_policy_latency.py \
     --report-dir /tmp/g2 --device cpu
 #   → 期望 latency_reduction > 0.10（归档值 0.4258；CPU 上绝对值不同但方向应一致）
 
-# G3 闭环 demo（TORCS + 模型，= 移植成功判定）
+# G3 一键自检（TORCS + 模型一起跑，跑通 = 部署成功）
 bash run.sh
 #   → per-step 逐行打印 + "TORCS terminated." + data/replay_example.json 更新
 
-# G4 验收指标复现
+# G4 复现两个验收指标
 bash scripts/run_metric1_latency.sh                  # 指标①（无 GPU: DEVICE=cpu）
 bash scripts/run_metric2_standard_h20.sh             # 指标② H20 ≥ 0.90（无 GPU: DEVICE=cpu）
 #   结果在 outputs/acceptance_exp012_H20_20260824/rerun/ 下

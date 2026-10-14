@@ -3,16 +3,15 @@
 ## 你的任务
 
 在这台无头 Linux（docker）上从零部署 TORCS + 本仓库，最终**复现两个验收指标**：
-
 1. 指标① 决策速度：`latency_reduction ≥ 0.10`（归档值 0.4258）
 2. 指标② H20 解码控制有效率：`decode_precision ≥ 0.90`（归档值 0.9050）
 
-成功判据（G3）：`bash run.sh` 打印 per-step 数据 + `TORCS terminated.` +
+部署完成的判据（部署文档里的第 3 步检查点）：`bash run.sh` 打印 per-step 数据 + `TORCS terminated.` +
 `data/replay_example.json` 重新生成。
 
 ## 必读
 
-- `DEPLOY_TORCS.md` —— 完整部署步骤（apt 依赖 → 编译 vtorcs-RL-color → practice.xml → conda env → G1-G4 gate）
+- `DEPLOY_TORCS.md` —— 完整部署步骤（apt 依赖 → 编译 vtorcs-RL-color → practice.xml → conda env → 四步检查清单）
 - `README.md` —— 仓库结构与指标口径
 - `docs/CROSS_VALIDATION_REPORT.md` —— 移植核查背景（哪些文件从哪来、为何这样摆）
 
@@ -55,7 +54,7 @@
 
 ## 工作方式
 
-- 按 DEPLOY_TORCS.md 的 G1→G4 逐 gate 推进，每 gate 留下输出证据（终端日志贴到汇报里）。
+- 按 DEPLOY_TORCS.md 的四步检查清单（工具链 → 模型推理 → 一键自检 → 指标复现）逐步推进，每步留下输出证据（终端日志贴到汇报里）。
 - 一次只跑一个评测进程（Xvfb :99 / UDP 3101 全局唯一，并行会互杀 torcs）。
 - 指标判读用 gate 口径（①reduction≥0.10、②H20≥0.90），不要逐位对齐归档值；重新编译的
   TORCS 物理有微小差异，H20 落在 90% 附近小幅波动属正常。
