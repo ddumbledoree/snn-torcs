@@ -1,0 +1,9 @@
+{
+  "baseline_policy_latency_ms": 1.0565486119930938,
+  "baseline_p50_ms": 1.0296515001755324,
+  "baseline_p95_ms": 1.136752550314668,
+  "ours_policy_latency_ms": 0.6066748739981449,
+  "ours_p50_ms": 0.5875750002815039,
+  "ours_p95_ms": 0.6545430497681082,
+  "latency_reduction": 0.4257955884739637
+}

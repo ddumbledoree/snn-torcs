@@ -1,0 +1,102 @@
+{
+  "model_type": "snn_baseline",
+  "checkpoint": {
+    "path": "/home/desc/gym_torcs/outputs/checkpoints/exp013_baseline_center20/best.pth",
+    "basename": "best.pth",
+    "parent": "exp013_baseline_center20",
+    "size_bytes": 28440167,
+    "mtime_unix": 1783093932.754436,
+    "mtime_iso": "2026-07-03T23:52:12.754436",
+    "sha256": "22825d7b1a1455c9b67c86f5bae06000148a0328600223119cb2936fe6e9dac0",
+    "metadata": {
+      "episode": 1806,
+      "best_reward": 30794.67624006785,
+      "stage": "baseline_t8",
+      "train_step": 374070,
+      "epsilon": 0.10842950481728028
+    }
+  },
+  "config": {
+    "path": "/home/desc/gym_torcs/configs/default.yaml",
+    "seed": 42,
+    "device": "cuda",
+    "run_mode": "demo_eval",
+    "fixed_accel": 0.15,
+    "max_steps": 1000,
+    "output_dim": 7,
+    "steer_values": [
+      -1.0,
+      -0.5,
+      -0.25,
+      0.0,
+      0.25,
+      0.5,
+      1.0
+    ]
+  },
+  "episodes": 2,
+  "avg_reward": 31485.22168178371,
+  "reward_std": 0.0,
+  "reward_min": 31485.22168178371,
+  "reward_max": 31485.22168178371,
+  "avg_episode_length": 1000.0,
+  "episode_length_std": 0.0,
+  "episode_length_max": 1000,
+  "reference_action_agreement": 0.301,
+  "action_accuracy": 0.301,
+  "done_reasons": {
+    "max_steps": 2
+  },
+  "action_counts": {
+    "1": 428,
+    "2": 238,
+    "3": 52,
+    "4": 1270,
+    "6": 12
+  },
+  "q_gap_mean": 0.18779396629333497,
+  "q_max_mean": 29.09531225967407,
+  "total_steps": 2000,
+  "episode_details": [
+    {
+      "episode": 0,
+      "reward": 31485.22168178371,
+      "steps": 1000,
+      "reference_action_agreement": 0.301,
+      "done_reason": "max_steps",
+      "final_trackPos": 0.647941,
+      "final_angle": 0.0452172,
+      "final_speedX": 42.8924,
+      "final_distRaced": 2094.45,
+      "action_counts": {
+        "1": 214,
+        "2": 119,
+        "3": 26,
+        "4": 635,
+        "6": 6
+      },
+      "q_gap_mean": 0.18779396629333497,
+      "q_max_mean": 29.09531225967407
+    },
+    {
+      "episode": 1,
+      "reward": 31485.22168178371,
+      "steps": 1000,
+      "reference_action_agreement": 0.301,
+      "done_reason": "max_steps",
+      "final_trackPos": 0.647941,
+      "final_angle": 0.0452172,
+      "final_speedX": 42.8924,
+      "final_distRaced": 2094.45,
+      "action_counts": {
+        "1": 214,
+        "2": 119,
+        "3": 26,
+        "4": 635,
+        "6": 6
+      },
+      "q_gap_mean": 0.18779396629333497,
+      "q_max_mean": 29.09531225967407
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+# Eval condition presets for TORCS. Each = a track/car/friction combination.
+# Switched ZERO-stock-write via a cwd symlink-farm (see snn_torcs/condition.py).
+#
+# Keys:
+#   track/category : selected via practice.xml <Tracks> name+category (scoped edit)
+#   car            : selected via scr_server.xml <attstr name="car name"> (global, safe)
+#   friction       : list of {surface, value}; surface = <section name="..."> in the
+#                    track XML whose friction to override (scoped edit, isolated to that track)
+#                    Omit/leave at stock value to keep baseline grip.
+
+baseline:                       # REGRESSION ANCHOR — reproduces stock exactly
+  track: g-track-1
+  category: road
+  car: car1-trb1
+  friction:
+    - {surface: asphalt-g1, value: 1.15}     # == stock g-track-1.xml line 582
+
+wet:                            # slippery main surface
+  track: g-track-1
+  category: road
+  car: car1-trb1
+  friction:
+    - {surface: asphalt-g1, value: 0.7}
+
+icy:                            # very low grip
+  track: g-track-1
+  category: road
+  car: car1-trb1
+  friction:
+    - {surface: asphalt-g1, value: 0.4}
+
+wet-all:                        # dampen every asphalt-g1* driving surface
+  track: g-track-1
+  category: road
+  car: car1-trb1
+  friction:
+    - {surface: asphalt-g1, value: 0.6}
+    - {surface: asphalt-g1-left, value: 0.6}
+    - {surface: asphalt-g1-right, value: 0.6}
+    - {surface: asphalt-g1-patch, value: 0.6}
+
+alt-car:                        # car-selection axis: different car, same track/grip
+  track: g-track-1
+  category: road
+  car: car2-trb1
+  friction:
+    - {surface: asphalt-g1, value: 1.15}
+
+alt-track:                      # track-selection axis: different track
+  track: e-track-1
+  category: road
+  car: car1-trb1
+  friction:
+    - {surface: asphalt-bw3, value: 1.15}    # e-track-1 main surface (verify in test)

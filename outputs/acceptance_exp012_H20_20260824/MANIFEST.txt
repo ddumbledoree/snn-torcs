@@ -1,0 +1,28 @@
+Acceptance package for original exp012 SNN T=4 with H20 decoded-control validity.
+
+Core model:
+models/exp012_ours_t4_best.pth
+
+Latency baseline:
+models/exp013_baseline_t8_best.pth
+
+Copied evaluation scripts:
+scripts/benchmark_policy_latency.py
+scripts/eval_steptrace.py
+scripts/eval_condition.py
+scripts/summarize_decode_control_validity.py
+
+Re-run wrappers:
+scripts/run_metric1_latency.sh
+scripts/run_metric2_standard_h20.sh
+scripts/run_7_condition_h20_matrix.sh
+
+Primary evidence:
+reports/metric1_latency_benchmark.json
+reports/standard/baseline_t0.15_H20.json
+reports/condition_matrix/summary_H20_acceptance.csv
+reports/condition_matrix/mean_H20_summary.txt
+
+Alt-track diagnostic:
+runtime_notes/alt-track_t0.15_verbose1000_commtimeout.log
+

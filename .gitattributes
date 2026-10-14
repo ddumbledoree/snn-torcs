@@ -1,0 +1,12 @@
+# Force LF everywhere (repo is consumed on Linux; authors may be on Windows).
+# Without this, committing from Windows can flip .sh/.py to CRLF and break bash.
+* text=auto eol=lf
+
+# Binaries
+*.pth binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.rgb binary
+*.ac binary
+*.acc binary

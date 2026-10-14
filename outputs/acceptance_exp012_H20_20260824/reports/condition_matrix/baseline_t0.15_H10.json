@@ -1,0 +1,81 @@
+{
+  "metric": "finalG_decoded_control_validity",
+  "horizon": 10,
+  "track_limit": 1.0,
+  "angle_weight": 1.0,
+  "total_steps": 1000,
+  "valid_steps": 858,
+  "valid_rate": 0.858,
+  "decode_precision": 0.858,
+  "metric2_pass": false,
+  "invalid_reasons": {
+    "persistent_error_worsening": 142
+  },
+  "valid_rate_by_region": {
+    "center_region": {
+      "valid_steps": 415,
+      "total_steps": 443,
+      "valid_rate": 0.9367945823927766
+    },
+    "critical_state": {
+      "valid_steps": 91,
+      "total_steps": 91,
+      "valid_rate": 1.0
+    },
+    "edge_region": {
+      "valid_steps": 443,
+      "total_steps": 557,
+      "valid_rate": 0.7953321364452424
+    },
+    "nominal_state": {
+      "valid_steps": 767,
+      "total_steps": 909,
+      "valid_rate": 0.8437843784378438
+    }
+  },
+  "truncated_windows": 9,
+  "mean_progress": 1.9858758758758759,
+  "min_progress": 0.02,
+  "mean_reward": 28.5045841,
+  "mean_infer_ms": 1.0421763000000002,
+  "p95_infer_ms": 1.079205,
+  "source_trace": {
+    "model_type": "snn_ours",
+    "checkpoint": {
+      "path": "/home/desc/gym_torcs/outputs/checkpoints/exp012_ours_t4_20260620_0133/best.pth",
+      "basename": "best.pth",
+      "parent": "exp012_ours_t4_20260620_0133",
+      "size_bytes": 28664999,
+      "mtime_iso": "2026-06-20T23:32:22.654537",
+      "sha256": "61c9982fed215cb04f516a0909edd02acc312cdd4a25a8c80090c42f2d7b5e25",
+      "metadata": {
+        "episode": 3665,
+        "best_reward": 35601.35965083903,
+        "stage": "ours_t4",
+        "train_step": 365792,
+        "epsilon": 0.07992987562719142
+      }
+    },
+    "episodes": 1,
+    "track": "g-track-1",
+    "config": {
+      "path": "/home/desc/gym_torcs/configs/default.yaml",
+      "seed": 42,
+      "device": "cuda:0",
+      "run_mode": "fast_train",
+      "fixed_accel": 0.15,
+      "max_steps": 1000,
+      "output_dim": 7,
+      "steer_values": [
+        -1.0,
+        -0.5,
+        -0.25,
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ]
+    }
+  },
+  "trace_path": "/home/desc/gym_torcs/outputs/exp012_condition_matrix_20260824/matrix/baseline_t0.15_steptrace.json"
+}

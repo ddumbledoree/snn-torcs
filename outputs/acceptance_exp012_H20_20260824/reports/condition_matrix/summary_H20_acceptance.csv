@@ -1,0 +1,9 @@
+condition,steps,done_reason,H20,H20_pass,role
+baseline_t0.10,1000,max_steps,95.30%,true,complete_speed_condition
+baseline_t0.15,1000,max_steps,90.50%,true,standard_acceptance_condition
+baseline_t0.20,1000,max_steps,97.70%,true,complete_speed_condition
+baseline_t0.25,1000,max_steps,93.00%,true,complete_speed_condition
+wet-all_t0.15,1000,max_steps,88.90%,false,six_condition_average_support
+alt-car_t0.15,1000,max_steps,89.30%,false,six_condition_average_support
+alt-track_t0.15,556,max_steps,93.71%,true,pretimeout_support_only
+

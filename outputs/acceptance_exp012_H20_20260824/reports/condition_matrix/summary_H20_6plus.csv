@@ -1,0 +1,11 @@
+condition,steps,done_reason,H10,H20,H20_pass,valid20,total
+baseline_t0.10,1000,max_steps,90.50%,95.30%,True,953,1000
+baseline_t0.15,1000,max_steps,85.80%,90.50%,True,905,1000
+baseline_t0.20,1000,max_steps,93.60%,97.70%,True,977,1000
+baseline_t0.25,1000,max_steps,88.30%,93.00%,True,930,1000
+baseline_t0.30,140,off_track,59.29%,64.29%,False,90,140
+baseline_t0.35,142,off_track,80.99%,85.92%,False,122,142
+baseline_t0.40,130,off_track,69.23%,79.23%,False,103,130
+wet-all_t0.15,1000,max_steps,83.70%,88.90%,False,889,1000
+alt-car_t0.15,1000,max_steps,84.80%,89.30%,False,893,1000
+alt-track_t0.15,NA,CommTimeout/no_trace,NA,NA,NA,NA,NA

@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Rerun outputs (acceptance scripts write fresh evidence here)
+**/rerun/
+
+# TORCS config backups made at runtime by snn_torcs/run_mode.py
+*.bak
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
