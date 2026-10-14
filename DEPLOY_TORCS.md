@@ -21,6 +21,7 @@ apt-get update && apt-get install -y --no-install-recommends \
     libglib2.0-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev \
     libplib-dev libopenal-dev libalut-dev libxi-dev libxmu-dev \
     libxrender-dev libxrandr-dev libpng-dev \
+    libgl1-mesa-dri \
     xvfb x11-utils xautomation procps \
     git wget ca-certificates
 ```
@@ -89,8 +90,13 @@ python -c "import torch, yaml, numpy, gym; print('ok')"   # gym 会打 deprecati
 ```
 
 - 有 GPU 的 docker：需 NVIDIA Container Toolkit，`--device cuda` 直接用。
+  ⚠️ **驱动版本门槛**：environment.yml 钉的是 torch 2.12 + CUDA 13 栈，要求宿主机 NVIDIA
+  驱动非常新（≥580 系）。`nvidia-smi` 看驱动，若不满足：直接全程 `DEVICE=cpu`（指标①②都能跑，
+  只是绝对时延数值不同），或自建 cu12 版 torch 环境。**不要在这个卡点上消耗部署主线时间。**
 - 纯 CPU docker：脚本用 `DEVICE=cpu` 覆盖（见 §5）。environment.yml 会照装 CUDA 版 torch
   wheel（体积大但 CPU 可跑）；追求轻量可自建 cpu-only env（torch cpu wheel + pyyaml + numpy<2.5 + gym==0.26.2）。
+- 网络慢/受限时：conda 与 pip 均可配国内镜像（如清华源）再 `conda env create -f environment.yml`，
+  cuda-toolkit 相关 wheel 合计数 GB，镜像能省大量时间。
 
 ## 5. 验收 gate（逐级解锁，每步过了再下一步）
 
@@ -119,7 +125,16 @@ bash scripts/run_metric2_standard_h20.sh             # 指标② H20 ≥ 0.90（
 bash scripts/run_7_condition_h20_matrix.sh
 ```
 
-## 6. 故障排查速查
+## 6. 运行纪律与预期管理
+
+- **一次只跑一个评测进程**：Xvfb :99 和 UDP 3101 是全局唯一资源，两个 eval 并行会互相杀对方的
+  torcs / 抢端口。矩阵脚本内部已经是串行的，不要同时手动再起 run.sh。
+- **复现数字的语义**：TORCS 在新机器上重新编译后，物理仿真与原环境存在微小差异，
+  H20 不会精确复刻 90.50%，时延绝对值也会不同。按 **gate 口径**判读（指标① reduction≥0.10、
+  指标② H20≥0.90）而不是逐位对齐归档值；若 H20 略低于 0.90（如 88~90%），属于证据解释问题，
+  优先多跑几遍看均值/检查 TORCS 构建差异，而不是怀疑代码移植错了。
+
+## 7. 故障排查速查
 
 | 症状 | 原因 | 处置 |
 |---|---|---|

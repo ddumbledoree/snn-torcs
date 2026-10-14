@@ -43,6 +43,9 @@
 ## 工作方式
 
 - 按 DEPLOY_TORCS.md 的 G1→G4 逐 gate 推进，每 gate 留下输出证据（终端日志贴到汇报里）。
+- 一次只跑一个评测进程（Xvfb :99 / UDP 3101 全局唯一，并行会互杀 torcs）。
+- 指标判读用 gate 口径（①reduction≥0.10、②H20≥0.90），不要逐位对齐归档值；重新编译的
+  TORCS 物理有微小差异，H20 落在 90% 附近小幅波动属正常。
 - 编译 TORCS 报错时：优先 `./configure --disable-xrandr`、降并行度、或换 ubuntu:20.04 基底，
   而不是大改上游源码。
 - 每完成一个 gate 做一次 git commit（信息格式：`gate-G<n>: <结果摘要>`）。
