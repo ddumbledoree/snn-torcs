@@ -12,8 +12,9 @@ SNN（Spiking Neural Network）策略在 TORCS 上的**推理运行包 + 验收�
 | ② H20 解码控制有效率（标准条件） | baseline_t0.15 / g-track-1 / 1000 步 | 90.50%（pass） | `bash scripts/run_metric2_standard_h20.sh` |
 
 鲁棒性矩阵（wet/icy/换车/换赛道 6+1 条件，均值 92.45%）见
-`outputs/acceptance_exp012_H20_20260824/`，**复现需要补回 `snn_torcs/condition.py`**
-（仓库中是占位 stub，见 `docs/condition_module_spec.md`）；主 gate ① ② 不依赖它。
+`outputs/acceptance_exp012_H20_20260824/`；`snn_torcs/condition.py` 已按
+`docs/condition_module_spec.md` 重建（备份→改写→恢复→污染门），直接运行
+`DEVICE=cpu bash scripts/run_7_condition_h20_matrix.sh` 即可复现；主 gate ① ② 不依赖它。
 
 ## 从零跑起来（Linux / Docker）
 
@@ -47,7 +48,7 @@ SNN（Spiking Neural Network）策略在 TORCS 上的**推理运行包 + 验收�
 │   ├── trainer.py                兼容 shim（仅 re-export io.py，无训练代码）
 │   ├── env_wrapper.py            离散动作包装 + reward shaping
 │   ├── run_mode.py               Xvfb :99 + practice/screen.xml 备份改写恢复
-│   ├── condition.py              ⚠️ 占位 stub（矩阵复现需补，见 docs/）
+│   ├── condition.py              条件切换引擎（已按 docs/condition_module_spec.md 重建）
 │   └── utils.py
 ├── configs/default.yaml          网络/环境/评测参数
 ├── conditions/conditions.yaml    6+1 条件预设（供 condition.py 使用）

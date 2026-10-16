@@ -121,7 +121,7 @@ bash scripts/run_metric1_latency.sh                  # 指标①（无 GPU: DEVI
 bash scripts/run_metric2_standard_h20.sh             # 指标② H20 ≥ 0.90（无 GPU: DEVICE=cpu）
 #   结果在 outputs/acceptance_exp012_H20_20260824/rerun/ 下
 
-# G5（可选）7 条件鲁棒性矩阵 —— 先补 snn_torcs/condition.py（见 docs/condition_module_spec.md）
+# G5（可选）7 条件鲁棒性矩阵 —— condition.py 已重建，直接运行
 bash scripts/run_7_condition_h20_matrix.sh
 ```
 

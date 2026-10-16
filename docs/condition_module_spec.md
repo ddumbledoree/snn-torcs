@@ -2,7 +2,7 @@
 
 > **重建完成（2026-10-14）**：按本规格实现了备份→原地改写→恢复→污染门方案，
 > 全矩阵重跑与归档值逐位一致（见 rerun/condition_matrix_h20/）。
-> 实现时约的兩个部署差异：(1) 本容器的 TORCS 从**系统级**
+> 实现时发现的两个部署差异：(1) 本容器的 TORCS 从**系统级**
 > /usr/local/share/games/torcs/config/raceman/practice.xml 读赛道，
 > practice.xml 必须 user+system 两份同步补丁（spec 原假设只改 ~/.torcs）；
 > (2) e-track-1 主路面 surface 名 asphalt-bw3 已验证存在（stock friction 1.2，
