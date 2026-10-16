@@ -1,5 +1,13 @@
 # `snn_torcs/condition.py` — 接口规格（供重建使用）
 
+> **重建完成（2026-10-14）**：按本规格实现了备份→原地改写→恢复→污染门方案，
+> 全矩阵重跑与归档值逐位一致（见 rerun/condition_matrix_h20/）。
+> 实现时约的兩个部署差异：(1) 本容器的 TORCS 从**系统级**
+> /usr/local/share/games/torcs/config/raceman/practice.xml 读赛道，
+> practice.xml 必须 user+system 两份同步补丁（spec 原假设只改 ~/.torcs）；
+> (2) e-track-1 主路面 surface 名 asphalt-bw3 已验证存在（stock friction 1.2，
+> 预设改为 1.15 与归档行为一致）。
+
 > 背景：该模块在原私有训练仓库（`/home/desc/gym_torcs/snn_torcs/condition.py`）中实现，
 > 未包含在两个交接包里。本文档从 `conditions/conditions.yaml` 头注释与
 > `scripts/eval_condition.py` 的调用点反推其接口契约，供：

@@ -2,7 +2,14 @@
 set -euo pipefail
 
 PKG_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-REPO_ROOT="$(cd "$PKG_DIR/../.." && pwd)"
+# Repo root: this checkout is self-contained (scripts/ at its top level), so
+# prefer it when eval_condition.py lives there; fall back to the original
+# handoff layout (package nested two levels under the training repo).
+if [ -f "$PKG_DIR/scripts/eval_condition.py" ]; then
+    REPO_ROOT="$PKG_DIR"
+else
+    REPO_ROOT="$(cd "$PKG_DIR/../.." && pwd)"
+fi
 # Python interpreter: export PY=... to override; otherwise auto-resolve the
 # torcs_RL conda env, falling back to the active interpreter.
 if [ -z "${PY:-}" ]; then
@@ -27,7 +34,16 @@ PY="${PY:-python3}"
 # docs/condition_module_spec.md); every condition routes through eval_condition.py.
 DEVICE="${DEVICE:-cuda:0}"
 OUT="$PKG_DIR/rerun/condition_matrix_h20"
-COMMON=(--model-type snn_ours --checkpoint "$PKG_DIR/models/exp012_ours_t4_best.pth" --episodes 1 --run-mode fast_train --center-coef 20.0 --quiet --device "$DEVICE")
+# Checkpoint: repo-root models/ when present, else the archived acceptance
+# package's models/ (this checkout ships checkpoints only under outputs/).
+if [ -z "${CKPT:-}" ]; then
+    if [ -f "$PKG_DIR/models/exp012_ours_t4_best.pth" ]; then
+        CKPT="$PKG_DIR/models/exp012_ours_t4_best.pth"
+    else
+        CKPT="$PKG_DIR/outputs/acceptance_exp012_H20_20260824/models/exp012_ours_t4_best.pth"
+    fi
+fi
+COMMON=(--model-type snn_ours --checkpoint "$CKPT" --episodes 1 --run-mode fast_train --center-coef 20.0 --quiet --device "$DEVICE")
 
 mkdir -p "$OUT"
 cd "$REPO_ROOT"

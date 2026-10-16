@@ -26,8 +26,10 @@
 - 验收脚本：`PY=<python路径>` 覆盖解释器；`DEVICE=cpu` 覆盖算力（无 GPU 机器必用）。
 - 指标①（benchmark_policy_latency.py）**不需要 TORCS**，可最先跑，用来验证 Python 侧全链路。
 - 鲁棒性矩阵（run_7_condition_h20_matrix.sh）依赖 `snn_torcs/condition.py`，
-  本仓库是**占位 stub**（重建规格见 docs/condition_module_spec.md）。主 gate ①② 不需要它，
-  不要因为矩阵跑不了而阻塞主验收。
+  已按 docs/condition_module_spec.md 重建（2026-10-14，备份→改写→恢复→污染门方案）。
+  重要发现：本部署的 TORCS 从**系统级** raceman 文件读赛道，practice.xml 必须
+  user+system 两份同步补丁（只补 ~/.torcs 无效）；矩阵重跑需 `DEVICE=cpu`
+  （cuda 数值漂移，cpu 与归档值逐位一致）。主 gate ①② 不依赖本模块。
 
 ## 红线
 
