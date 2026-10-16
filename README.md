@@ -96,7 +96,6 @@ checkpoint 为 trainer 全量格式（含 `policy_net` 键），由 `snn_torcs/i
 ## 更多文档
 
 - `DEPLOY_TORCS.md` — TORCS 在 docker 上的完整安装部署指南
-- `AGENTS.md` — 给部署用 AI agent（pi）的操作说明与验收 gate
 - `docs/CROSS_VALIDATION_REPORT.md` — 移植前对两个原始包的依赖交叉核查报告
 - `docs/condition_module_spec.md` — condition.py 重建规格
 - `docs/practice.g-track-1.xml` — scr_server + g-track-1 的 practice.xml 模板

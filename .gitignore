@@ -14,3 +14,5 @@ __pycache__/
 Thumbs.db
 .idea/
 .vscode/
+# Local-only docs (kept in docker, not for GitHub)
+AGENTS.md
