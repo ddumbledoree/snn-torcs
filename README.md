@@ -79,6 +79,18 @@ checkpoint 为 trainer 全量格式（含 `policy_net` 键），由 `snn_torcs/i
 - 归档目录（`outputs/acceptance_.../`、`docs/handoff_archive/`）保持原样不动；新证据一律写
   `outputs/.../rerun/`（已 gitignore）。
 - Windows 协作者注意：`.gitattributes` 已强制 LF，请勿改动，否则 .sh 会在 Linux 上炸。
+- **基准算法闭环时延**（2026-10-15 本容器）：exp013 (SNN-DQN T=8) 标准工况 CPU 闭环
+  mean_infer=5.326ms（p50=5.28 / p95=6.85），1000 步完整，reward=31485.2 与交接归档逐位一致；
+  以此为基准，ours 各环境闭环时延降幅 16.5%–29.4%，全部 ≥10%（gate① 口径）。复现命令：
+  ```bash
+  python scripts/eval_steptrace.py --model-type snn_baseline \
+      --checkpoint outputs/acceptance_exp012_H20_20260824/models/exp013_baseline_t8_best.pth \
+      --episodes 1 --max-steps 1000 --run-mode fast_train --center-coef 20.0 \
+      --fixed-accel 0.15 --device cpu --quiet --report <out>.json
+  ```
+- **归档矩阵 baseline_t0.10 时延数据无效**：归档矩阵中 baseline_t0.10 的 mean_infer=4.872ms
+  为负载污染的无效测量（对基准降幅仅 8.53%），干净重跑为 3.807ms（降幅 28.53%）；
+  引用矩阵时延数据时以重跑值为准（`rerun/` 目录已 gitignore，可由脚本再生）。
 
 ## 更多文档
 
